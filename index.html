@@ -1,0 +1,33 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="theme-color" content="#FF91AF">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>MoeKoe 萌音</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.js"></script>
+  <script>
+    const getBrowserLocale = () => {
+      const browserLang = navigator.language;
+      if (browserLang.startsWith('zh')) {
+        if (browserLang === 'zh-TW' || browserLang === 'zh-HK') {
+          return 'zh-TW';
+        }
+        return 'zh-CN';
+      }
+      const lang = browserLang.split('-')[0];
+      return Object.keys(messages).includes(lang) ? lang : 'ja';
+    };
+    document.documentElement.lang = JSON.parse(localStorage.getItem('settings'))?.['language'] || getBrowserLocale();
+  </script>
+</body>
+
+</html>
